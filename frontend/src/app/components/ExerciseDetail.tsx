@@ -532,7 +532,7 @@ interface ExerciseDetailProps {
 
 export function ExerciseDetail({ exerciseNumber }: ExerciseDetailProps) {
   const [activeTab, setActiveTab] = useState('python');
-  const [inputValue, setInputValue] = useState<number | null>(null);
+  const [inputValue, setInputValue] = useState<number>(0);
   const [inputValue2, setInputValue2] = useState<number | null>(null);
   const [fileInput, setFileInput] = useState<File | null>(null);
   const [result, setResult] = useState<ExecutionResult | null>(null);
@@ -545,7 +545,7 @@ export function ExerciseDetail({ exerciseNumber }: ExerciseDetailProps) {
   // Réinitialiser quand on change d'exercice
   useEffect(() => {
     setResult(null);
-    setInputValue(null);
+    setInputValue(0);
     setFileInput(null);
   }, [exerciseNumber]);
 
@@ -557,9 +557,7 @@ export function ExerciseDetail({ exerciseNumber }: ExerciseDetailProps) {
 
     formData.append("numero", exerciseNumber.toString());
     formData.append("methode", methode);
-    if (inputValue) {
-      formData.append("nombre", (inputValue.toString()))
-    }
+    formData.append("nombre", (inputValue.toString()))
 
     if (inputValue2) {
       formData.append("nombre2", (inputValue2.toString()))
@@ -649,7 +647,7 @@ export function ExerciseDetail({ exerciseNumber }: ExerciseDetailProps) {
 
   const handleReset = () => {
     setResult(null);
-    setInputValue(null);
+    setInputValue(0);
     setFileInput(null)
   };
 
@@ -804,7 +802,7 @@ export function ExerciseDetail({ exerciseNumber }: ExerciseDetailProps) {
                 </label>
                 <input
                   type="number"
-                  value={inputValue!}
+                  value={inputValue}
                   onChange={(e) => setInputValue(parseInt(e.target.value))}
                   className={"w-full mb-2 px-3 md:px-4 py-2 md:py-3 bg-[#13131f] border-2 border-[#1f1f2e] rounded-xl text-white text-sm focus:outline-none focus:border-[#6366f1] transition-all"}
                   placeholder={exerciseNumber == 7 ? "Debut de Section" : "valeur de n" }
