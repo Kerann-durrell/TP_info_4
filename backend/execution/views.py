@@ -606,7 +606,7 @@ def traiter_exercice_11(request):
     resultat = None
     
     if fic is not None :
-        suite = create_suite_with_fic(fic) + [0]
+        suite = create_suite_with_fic(fic)
     else:
         return Response({"error": "Pas de fichier ou truc dans le genre..."}, status=400)
     
