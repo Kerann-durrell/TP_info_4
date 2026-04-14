@@ -524,6 +524,102 @@ print([(colline.debut, colline.sommet, colline.fin) for colline in collines])
 lea: `#A Vous de faire la partie çi parce que moi ça me depasse grave !!`
     }
   },
+
+  {
+    api : BACKEND_URL + "/api/exercice10/", title : 'Exercice 10 - fusionner deux listes',
+    fichier: true,
+    description: `Fusionner deux listes triées en une seule liste triée.
+
+## Consignes
+
+
+
+## Contraintes
+
+
+
+## Exemples
+
+`,
+    starterCode: {
+      python: ` 
+
+      suite = []
+
+try:
+    with open("fichier_1.txt", "r") as fic_1:
+        suite_1 = [int(x) for x in fic_1.read().split("\n") if x.isdigit()]
+
+    with open("fichier_2.txt", "r") as fic_2:
+        suite_2 = [int(x) for x in fic_2.read().split("\n") if x.isdigit()]
+except Exception as e:
+    print(f"{e}")
+
+
+index_nex_fic, index_fic_1, index_fic_2 = 0, 0, 0
+
+N = len(suite_1) + len(suite_2)
+
+while index_nex_fic < N:
+
+    if index_fic_1 >= len(suite_1):
+        if index_fic_2 < len(suite_2):
+            suite.append(suite_2[index_fic_2])
+            index_fic_2 += 1
+
+    elif index_fic_2 >= len(suite_2):
+        if index_fic_1 < len(suite_1):
+            suite.append(suite_1[index_fic_1])
+            index_fic_1 += 1
+     
+    else:
+        suite.append(min(suite_1[index_fic_1], suite_2[index_fic_2]))
+        if suite_1[index_fic_1] >= suite_2[index_fic_2]:
+            index_fic_2 += 1
+        else:
+            index_fic_1 += 1
+
+    print(suite_1, suite_2, suite)
+    index_nex_fic += 1
+
+
+`,
+lea: `#A Vous de faire la partie çi parce que moi ça me depasse grave !!`
+    }
+  },
+  
+  {
+    api : BACKEND_URL + "/api/exercice11/", title : 'Exercice 11 - insertion dans une liste triée',
+    fichier: true,
+    description: `Insérer un élément dans une liste triée en conservant l'ordre.
+
+## Consignes
+
+
+
+## Contraintes
+
+
+
+## Exemples
+
+`,
+    starterCode: {
+      python: ` 
+        try:
+    with open("suite.txt", "r") as fic_1:
+        suite = [int(x) for x in fic_1.read().split("\n") if x.isdigit()]
+except Exception as e:
+    print(f"{e}")
+
+nombre =  int(input("Entrez un nombre à inserer : "))
+
+print([i for i in suite if i < nombre] + [nombre] + [i for i in suite if i >= nombre])
+`,
+lea: `#A Vous de faire la partie çi parce que moi ça me depasse grave !!`
+    }
+  },
+  
 ];
 
 interface ExerciseDetailProps {
@@ -584,7 +680,6 @@ export function ExerciseDetail({ exerciseNumber }: ExerciseDetailProps) {
       throw new Error(data.error || "Erreur serveur");
     }
 
-    // 🔥 affichage réel du backend
     const output = (
       <div className="space-y-3 md:space-y-4">
         <div className="bg-[#13131f]/60 border border-[#1f1f2e] rounded-xl md:rounded-2xl p-3 md:p-5">
@@ -736,7 +831,7 @@ export function ExerciseDetail({ exerciseNumber }: ExerciseDetailProps) {
                   borderRadius: '12px',
                   border: '1px solid #1f1f2e',
                 }}
-                customStyleMobile={{
+                customstylemobile={{
                   margin: '0.5rem',
                   padding: '0.75rem',
                   fontSize: '0.75rem',
@@ -796,7 +891,7 @@ export function ExerciseDetail({ exerciseNumber }: ExerciseDetailProps) {
             </div>
             <div className="flex-1 p-4 md:p-6 space-y-4 md:space-y-5 overflow-y-auto">
               {/* Input Number */}
-              <div className={[3,4,5,6,8,9].includes(exerciseNumber) ? "hidden": "relative "}>
+              <div className={[3,4,5,6,8,9,10].includes(exerciseNumber) ? "hidden": "relative "}>
                 <label className="text-xs text-gray-500 uppercase tracking-wider block mb-2">
                   paramètre d'entrée 
                 </label>
@@ -819,7 +914,7 @@ export function ExerciseDetail({ exerciseNumber }: ExerciseDetailProps) {
                 />
               </div>
 
-              <div style={([8,9].includes(exerciseNumber) ? {display: 'none'} : {})}>
+              <div style={([8,9,10,11].includes(exerciseNumber) ? {display: 'none'} : {})}>
                 <label className="text-xs text-gray-500 uppercase tracking-wider block mb-2">
                   Méthode
                 </label>
@@ -840,6 +935,23 @@ export function ExerciseDetail({ exerciseNumber }: ExerciseDetailProps) {
                   Fichier
                 </label>
                 <div className={"relative"} >
+                  <input
+                    type="file"
+                    accept='txt'
+                    onChange={(e) => setFileInput(e.target.files?.[0] || null)}
+                    className="hidden"
+                    id="file-upload"
+                  />
+                  <label
+                    htmlFor="file-upload"
+                    className="flex items-center gap-2 md:gap-3 px-3 md:px-4 py-2 md:py-3 bg-[#13131f] border-2 border-dashed border-[#1f1f2e] rounded-xl text-gray-400 text-xs md:text-sm cursor-pointer hover:border-[#6366f1] transition-all"
+                  >
+                    <UploadCloud className="w-4 h-4 md:w-5 md:h-5 flex-shrink-0" />
+                    <span className="truncate">{fileInput ? fileInput.name : 'Choisir un fichier...'}</span>
+                  </label>
+                </div>
+
+                <div className={"relative"} style={exerciseNumber != 10 ? {display: 'none'} : {}} >
                   <input
                     type="file"
                     accept='txt'

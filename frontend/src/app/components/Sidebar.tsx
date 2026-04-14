@@ -16,8 +16,8 @@ const exercises: Exercise[] = [
   { id: 7, title: 'Recherche du maximum d\'une section' },
   { id: 8, title: 'Sections monotones d\'une suite' },
   { id: 9, title: 'Sections Unimodale (colline)' },
-  { id: 10, title: 'Fusion Ordonnée de deux suites', disabled : true },
-  { id: 11, title: 'Insertion d\'un element dans une suite', disabled : true },
+  { id: 10, title: 'Fusion Ordonnée de deux suites'},
+  { id: 11, title: 'Insertion d\'un element dans une suite'},
 ];
 
 interface SidebarProps {
