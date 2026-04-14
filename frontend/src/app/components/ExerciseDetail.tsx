@@ -542,19 +542,16 @@ lea: `#A Vous de faire la partie çi parce que moi ça me depasse grave !!`
 
 `,
     starterCode: {
-      python: ` 
-
-      suite = []
+      python: `suite = []
 
 try:
     with open("fichier_1.txt", "r") as fic_1:
-        suite_1 = [int(x) for x in fic_1.read().split("\n") if x.isdigit()]
+        suite_1 = [int(x) for x in fic_1.read().split("\\n") if x.isdigit()]
 
     with open("fichier_2.txt", "r") as fic_2:
-        suite_2 = [int(x) for x in fic_2.read().split("\n") if x.isdigit()]
+        suite_2 = [int(x) for x in fic_2.read().split("\\n") if x.isdigit()]
 except Exception as e:
     print(f"{e}")
-
 
 index_nex_fic, index_fic_1, index_fic_2 = 0, 0, 0
 
@@ -605,10 +602,11 @@ lea: `#A Vous de faire la partie çi parce que moi ça me depasse grave !!`
 
 `,
     starterCode: {
-      python: ` 
-        try:
+      python: 
+`
+try:
     with open("suite.txt", "r") as fic_1:
-        suite = [int(x) for x in fic_1.read().split("\n") if x.isdigit()]
+        suite = [int(x) for x in fic_1.read().split("\\n") if x.isdigit()]
 except Exception as e:
     print(f"{e}")
 
