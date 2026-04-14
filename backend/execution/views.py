@@ -583,3 +583,44 @@ def traiter_exercice_9(request):
         "id": execution.id,
         "resultat": resultat
     })
+
+
+
+
+
+
+
+
+
+
+
+
+#Exo  11 ------------------------------------------------------------------------------------------------------------------------------
+
+@api_view(['POST'])
+def traiter_exercice_11(request):
+    data = request.data
+    numero = data.get('numero')
+    fic = data.get('fichier')
+    nombre = int(data.get('nombre'))
+    resultat = None
+    
+    if fic is not None :
+        suite = create_suite_with_fic(fic) + [0]
+    else:
+        return Response({"error": "Pas de fichier ou truc dans le genre..."}, status=400)
+    
+
+
+    resultat = [i for i in suite if i < nombre] + [nombre] + [i for i in suite if i >= nombre]
+
+    execution = Execution.objects.create(
+        fichier = fic,
+        resultat=resultat,
+        numero = numero,
+    )
+
+    return Response({
+        "id": execution.id,
+        "resultat": resultat
+    })

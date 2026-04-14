@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import traiter_exercice_1, traiter_exercice_2, traiter_exercice_3, traiter_exercice_4, traiter_exercice_5, traiter_exercice_6, traiter_exercice_7, traiter_exercice_8, traiter_exercice_9
+from .views import traiter_exercice_1, traiter_exercice_2, traiter_exercice_3, traiter_exercice_4, traiter_exercice_5, traiter_exercice_6, traiter_exercice_7, traiter_exercice_8, traiter_exercice_9, traiter_exercice_11
 
 
 urlpatterns = [
@@ -12,4 +12,5 @@ urlpatterns = [
     path('exercice7/', traiter_exercice_7),
     path('exercice8/', traiter_exercice_8),
     path('exercice9/', traiter_exercice_9),
+    path('exercice11/', traiter_exercice_11),
 ]
