@@ -629,6 +629,7 @@ export function ExerciseDetail({ exerciseNumber }: ExerciseDetailProps) {
   const [inputValue, setInputValue] = useState<number>(0);
   const [inputValue2, setInputValue2] = useState<number | null>(null);
   const [fileInput, setFileInput] = useState<File | null>(null);
+  const [fileInput2, setFileInput2] = useState<File | null>(null);
   const [result, setResult] = useState<ExecutionResult | null>(null);
   const [isRunning, setIsRunning] = useState(false);
   const [methode, setMethode] = useState("recursive");
@@ -641,6 +642,7 @@ export function ExerciseDetail({ exerciseNumber }: ExerciseDetailProps) {
     setResult(null);
     setInputValue(0);
     setFileInput(null);
+    setFileInput2(null);
   }, [exerciseNumber]);
 
   const handleRun = async () => {
@@ -659,6 +661,10 @@ export function ExerciseDetail({ exerciseNumber }: ExerciseDetailProps) {
 
     if (fileInput) {
       formData.append("fichier", fileInput);
+    }
+
+    if (fileInput2) {
+      formData.append("fichier2", fileInput2);
     }
 
     const response = await fetch(exerciseData.api, {
@@ -888,7 +894,6 @@ export function ExerciseDetail({ exerciseNumber }: ExerciseDetailProps) {
               <h3 className="text-xs md:text-sm text-white"> Données d'entrées</h3>
             </div>
             <div className="flex-1 p-4 md:p-6 space-y-4 md:space-y-5 overflow-y-auto">
-              {/* Input Number */}
               <div className={[3,4,5,6,8,9,10].includes(exerciseNumber) ? "hidden": "relative "}>
                 <label className="text-xs text-gray-500 uppercase tracking-wider block mb-2">
                   paramètre d'entrée 

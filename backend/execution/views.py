@@ -587,10 +587,60 @@ def traiter_exercice_9(request):
 
 
 
+#Exo  10 ------------------------------------------------------------------------------------------------------------------------------
 
 
+@api_view(['POST'])
+def traiter_exercice_10(request):
+    data = request.data
+    numero = data.get('numero')
+    fic = data.get('fichier')
+    fic2 = data.get('fichier2')
+    resultat = None
+    
+    if fic is not None and fic2 is not None:
+        suite_1 = create_suite_with_fic(fic)
+        suite_2 = create_suite_with_fic(fic2)
+    else:
+        return Response({"error": "Pas de fichier ou truc dans le genre..."}, status=400)
+    
+    index_nex_fic, index_fic_1, index_fic_2 = 0, 0, 0
+    suite = []
+
+    N = len(suite_1) + len(suite_2)
+
+    while index_nex_fic < N:
+
+        if index_fic_1 >= len(suite_1):
+            if index_fic_2 < len(suite_2):
+                suite.append(suite_2[index_fic_2])
+                index_fic_2 += 1
+
+        elif index_fic_2 >= len(suite_2):
+            if index_fic_1 < len(suite_1):
+                suite.append(suite_1[index_fic_1])
+                index_fic_1 += 1
+        
+        else:
+            suite.append(min(suite_1[index_fic_1], suite_2[index_fic_2]))
+            if suite_1[index_fic_1] >= suite_2[index_fic_2]:
+                index_fic_2 += 1
+            else:
+                index_fic_1 += 1
+
+        index_nex_fic += 1
 
 
+    execution = Execution.objects.create(
+        fichier = fic,
+        resultat=resultat,
+        numero = numero,
+    )
+
+    return Response({
+        "id": execution.id,
+        "resultat": resultat
+    })
 
 
 
